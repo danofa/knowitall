@@ -1,0 +1,27 @@
+extends ../layout
+
+block content
+	table.table.table-hover.table-bordered.table-striped.table-condensed
+		th ID
+		th Title
+		th Group
+		th Quicklink
+		th Body
+		th Created
+		th Modified
+		each art in articles
+			tr
+				td= art._id
+				td= art.title
+				td= art.group.title + " (" + art.group.description + ")"
+				td= art.quicklink
+				td= art.body
+				td= moment(art.created).format("ddd D/M, ha")
+				td= moment(art.modified).format("ddd D/M, ha")
+				td
+					a.btn(href="delete/#{art._id}" title="Delete")
+						i.glyphicon.glyphicon-trash
+					a.btn(href="edit/#{art._id}" title="Edit")
+						i.glyphicon.glyphicon-edit
+						
+	include ../includes/links.jade
