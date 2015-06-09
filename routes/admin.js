@@ -9,7 +9,7 @@ var Topics = mongoose.model('Topic');
 
 router.all("*", function (req, res, next) {
   if (!req.secure) {
-    res.redirect("https://" + req.hostname + ":8443" + req.path);
+    res.redirect("https://" + req.hostname + req.path);
   } else {
         next();
   }

@@ -19,7 +19,7 @@ router.get('/login', function (req, res, next) {
     if (req.secure) {
         res.render('login');
     } else {
-        res.redirect("https://" + req.hostname + ":8443" + req.path);
+        res.redirect("https://" + req.hostname + req.path);
     }
 });
 
@@ -27,7 +27,7 @@ router.post('/login', function (req, res, next) {
     if (req.secure) {
         res.redirect('/admin');
     } else {
-        res.redirect("https://" + req.hostname + ":8443" + req.path);
+        res.redirect("https://" + req.hostname + req.path);
     }
 });
 
