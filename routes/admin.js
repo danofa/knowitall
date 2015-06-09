@@ -8,6 +8,7 @@ var Articles = mongoose.model('Article');
 var Topics = mongoose.model('Topic');
 
 router.all("*", function (req, res, next) {
+  console.error("https://" + req.hostname + req.path);
   if (!req.secure) {
     res.redirect("https://" + req.hostname + req.path);
   } else {
