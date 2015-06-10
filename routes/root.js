@@ -16,7 +16,6 @@ router.get('/', function (req, res, next) {
 
 // login page
 router.get('/login', function (req, res, next) {
-    console.error("https://" + req.hostname + req.path);
     if (req.secure) {
         res.render('login');
     } else {
@@ -25,7 +24,6 @@ router.get('/login', function (req, res, next) {
 });
 
 router.post('/login', function (req, res, next) {
-    console.error("https://" + req.hostname + req.path);
     if (req.secure) {
         res.redirect('/admin');
     } else {

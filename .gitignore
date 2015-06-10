@@ -1,4 +1,3 @@
 ssl/*
 *.log
 node_modules/*
-typings/*

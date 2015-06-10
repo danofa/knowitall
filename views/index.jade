@@ -3,7 +3,7 @@ extends layout
 
 block breadcrumbs
   - var path = "";
-  unless breadcrumbs == null
+  if breadcrumbs != null
     - path += "/" + breadcrumbs.join("/");
     ol.breadcrumb
       li: a(href="/") Index
