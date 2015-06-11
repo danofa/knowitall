@@ -24,7 +24,7 @@ router.get('/', function (req, res, next) {
 // add article
 router.get('/article/add', function (req, res, next) {
   Topics.find(function (err, topics) {
-    if (err) console.log(__filename + " : " + err);
+    if (err) console.error(__filename + " : " + err);
     res.render('article/add', { topicgroups: topics });
   });
 });
@@ -73,6 +73,8 @@ router.get('/article/edit/:id', function (req, res) {
 
 router.post('/article/update', function (req, res) {
   Articles.findOne({ '_id': mongoose.Types.ObjectId(req.body.id) }).populate('group').exec(function (err, article) {
+    if (err) console.error(__filename + " : " + err);
+
     article.title = req.body.title;
     article.quicklink = req.body.quicklink.replace(/ /g, "-");
     article.body = req.body.body;
@@ -81,8 +83,6 @@ router.post('/article/update', function (req, res) {
 
     article.save(function (edit_err) {
       if (edit_err) {
-        if (err) console.log(__filename + " : " + err);
-
         res.redirect("edit/" + article._id + '?err=' + edit_err);
 
       } else {
@@ -165,7 +165,6 @@ router.post('/topic/update', function (req, res) {
     topic.description = req.body.description;
     topic.parent = (req.body.parent ? mongoose.Types.ObjectId(req.body.parent) : null);
 
-    console.log("parent is: " + topic.parent);
     topic.save(function (edit_err) {
       if (edit_err) {
         res.redirect("edit/" + topic._id + '?err=' + edit_err);
