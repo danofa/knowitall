@@ -10,7 +10,7 @@ var url = require('url');
 router.get('/', function (req, res, next) {
     Topics.find({ parent: null }, function (err, topics) {
         if (err) console.error(__filename + " : " + err);
-        res.render('index', { topics: getRows(topics) });
+        res.render('index', { topics: topics });
     });
 });
 
@@ -44,7 +44,7 @@ router.get('/*', function (req, res, next) {
             Topics.find({ parent: parent._id }, function (err, topics) {
                 if (err) console.error(__filename + " : " + err);
                 Articles.find({ group: parent._id }).exec(function (err, articles) {
-                    res.render('index', { groupval: parent, topics: getRows(topics), articles: articles, breadcrumbs: data });
+                    res.render('index', { groupval: parent, topics: topics, articles: articles, breadcrumbs: data });
                 });
             });
         }

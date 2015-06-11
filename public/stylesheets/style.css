@@ -2,6 +2,16 @@ body {
   padding-top: 70px;
 }
 
+.navpills-custom {
+	background: #eee;
+	border-radius: 4px;
+	margin: 3px;
+}
+
+li.navpills-custom > a:hover {
+	background-color:#ddd;	
+}
+
 div.error {
   font-weight: bold;
   color: red;

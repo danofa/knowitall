@@ -19,10 +19,10 @@ block content
   if search
     h3 search results for '#{search}', #{searchcount} result(s).
   if topics && topics.length != 0
-    for topic3 in topics
+      //-for topic3 in topics
       ul.nav.nav-pills
-        for topic in topic3
-          li
+        for topic in topics
+          li.navpills-custom
             a(href='#{path + "/" + topic.title}' data-toggle="tooltip" data-container="body" data-placement="top" title="#{topic.description}") #{topic.title}
       
     hr
@@ -31,7 +31,7 @@ block content
       for a in articles
         - var group = (typeof(groupval) === 'undefined' ? a.group :  groupval);
         .panel.panel-default
-          .panel-heading
+          .panel-heading(style="border-radius: 4px;")
             .panel-title
               div
                 a.smaller(data-toggle="collapse" aria-expanded="false" aria-controls="#{a.quicklink}" href="##{a.quicklink}" )
@@ -43,7 +43,7 @@ block content
                 span.pull-right(style="margin: 0px 10px;") modified: #{moment(a.modified).format("ddd D/M, ha")}
                 
           .panel-collapse.collapse(id="#{a.quicklink}")
-            .panel-body(style="margin: 0px; background: #ffffff; border: 0px;")!= md(a.body)
+            .panel-body(style="margin: 0px; background: #ffffff; border: 0px; border-radius: 4px;")!= md(a.body)
               //-!{a.body.replace(/\n/g,"<br/>")}
               
     hr
