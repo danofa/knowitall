@@ -12,7 +12,7 @@ router.all("*", function (req, res, next) {
   if (!req.secure) {
     res.redirect("https://" + req.hostname + req.path);
   } else {
-        next();
+    next();
   }
 });
 
@@ -158,22 +158,16 @@ router.get('/topic/edit/:id', function (req, res) {
 
 // update topic
 router.post('/topic/update', function (req, res) {
-  Topics.findOne({ '_id': mongoose.Types.ObjectId(req.body.id) }).populate('parent').exec(function (err, topic) {
+  Topics.findOne({ '_id': mongoose.Types.ObjectId(req.body.id) }).exec(function (err, topic) {
+    if (err) console.error(__filename + " : " + err);
+
     topic.title = req.body.title;
     topic.description = req.body.description;
+    topic.parent = (req.body.parent ? mongoose.Types.ObjectId(req.body.parent) : null);
 
-    var parent;
-    if (!req.body.parent) {
-      parent = null;
-    } else {
-      parent = mongoose.Types.ObjectId(req.body.parent);
-    }
-
-    topic.parent = parent;
-
+    console.log("parent is: " + topic.parent);
     topic.save(function (edit_err) {
       if (edit_err) {
-        if (err) console.log(__filename + " : " + err);
         res.redirect("edit/" + topic._id + '?err=' + edit_err);
       } else {
         res.redirect("list");

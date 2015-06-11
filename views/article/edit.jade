@@ -16,7 +16,7 @@ block content
 			.col-sm-4
 				select.form-control(name="group")
 					each o in topicgroups
-						if o._id.equals(art.group._id)
+						if art.group && o._id.equals(art.group._id)
 							option(selected value="#{o._id}") #{o.title} / #{o.description}
 						else
 							option(value="#{o._id}") #{o.title} / #{o.description}

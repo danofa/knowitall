@@ -26,12 +26,12 @@ function main() {
 		function (answers) {
 			switch (answers.usermenu) {
 				case 1:
-					console.log("Users: ");
 					Users.find(function (err, users) {
-						users.forEach(function (user) { console.log("found: " + user.name); });
+						console.log("\r\nUsers: ");
+						users.forEach(function (user) { console.log(" - " + user.name + " : " + user.login); });
 						console.log(users.length + " users found.");
+						main();
 					});
-					main();
 					break;
 
 				case 2:
@@ -47,10 +47,10 @@ function main() {
 					break;
 
 				case 5:
-					process.exit();
-					
+					quit();
+
 				default:
-					process.exit();
+					quit();
 					break;
 			}
 
@@ -64,12 +64,44 @@ function adduser() {
 		{ type: "password", name: "confirmpass", message: "confirm password" },
 		{ type: "input", name: "realname", message: "enter display name" }],
 		function (answers) {
-			if(answers.pass !== answers.confirmpass){
+			if (answers.pass !== answers.confirmpass) {
 				console.error("passwords do not match");
 				adduser();
+
+			} else {
+				var salt = bcrypt.genSaltSync(10);
+				var hash = bcrypt.hashSync(answers.pass, salt);
+
+				var user = new Users({
+					login: answers.login,
+					password: hash,
+					salt: salt,
+					name: answers.realname
+				});
+
+				user.save(function (err) {
+					if (err) {
+						console.error("could not save new user: " + err);
+						main();
+					} else {
+						console.log(answers.realname + " successfully added.");
+						main();
+					}
+				});
 			}
 		});
 }
 
+function deluser(){
+	
+}
+
+function edituser(){
+	
+}
+
+function quit() {
+	process.exit();
+}
 
 main();
