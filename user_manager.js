@@ -29,7 +29,7 @@ function main() {
 					Users.find(function (err, users) {
 						console.log("\r\nUsers: ");
 						users.forEach(function (user) { console.log(" - " + user.name + " : " + user.login); });
-						console.log(users.length + " users found.");
+						console.log(users.length + " users found.\r\n");
 						main();
 					});
 					break;

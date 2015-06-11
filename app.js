@@ -25,6 +25,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
+
 // model
 var articleModel = require("./models/article.js");
 
@@ -47,6 +48,9 @@ app.locals.pretty = true;
 
 // date formatting lib in global scope.
 app.locals.moment = require('moment');
+
+//markdown parser in global scope
+app.locals.md = require('marked');
 
 // app setup
 app.use(favicon(__dirname + '/public/images/fav.ico'));

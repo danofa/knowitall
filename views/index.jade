@@ -43,6 +43,7 @@ block content
                 span.pull-right(style="margin: 0px 10px;") modified: #{moment(a.modified).format("ddd D/M, ha")}
                 
           .panel-collapse.collapse(id="#{a.quicklink}")
-            .panel-body(style="margin: 0px; background: #ffffff; border: 0px;").
-              !{a.body.replace(/\n/g,"<br/>")}
+            .panel-body(style="margin: 0px; background: #ffffff; border: 0px;")!= md(a.body)
+              //-!{a.body.replace(/\n/g,"<br/>")}
+              
     hr
