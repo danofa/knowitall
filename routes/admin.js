@@ -73,7 +73,7 @@ router.get('/article/edit/:id', function (req, res) {
 
 router.post('/article/update', function (req, res) {
   Articles.findOne({ '_id': mongoose.Types.ObjectId(req.body.id) }).populate('group').exec(function (err, article) {
-    
+    // testing
     if (err) console.error(__filename + " : " + err);
 
     article.title = req.body.title;
