@@ -21,10 +21,10 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 
 // model
 var articleModel = require("./models/article.js");
@@ -37,7 +37,7 @@ var search = require('./routes/search')
 var app = express();
 
 // db setup
-mongoose.connect('mongodb://127.0.0.1/testknowit',function(err){ if(err){ console.error("mongoose connection error: " + err); return; }});
+mongoose.connect('mongodb://127.0.0.1/testknowit', function (err) { if (err) { console.error("mongoose connection error: " + err); return; } });
 mongoose.set('debug', true);
 
 // view engine setup
@@ -52,12 +52,21 @@ app.locals.moment = require('moment');
 //markdown parser in global scope
 app.locals.md = require('marked');
 
-// app setup
+// session store setup
+app.set('trust proxy', 1);
+app.use(session({
+  resave: false,
+  saveUninitialized: false,
+  secret: 'mysuper app secret',
+  cookie : { secure: true, httpOnly: false, maxAge: 60000 },
+  store: new MongoStore({ mongooseConnection: mongoose.connection })
+}));
+
+// middleware setup
 app.use(favicon(__dirname + '/public/images/fav.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.disable("x-powered-by");
 

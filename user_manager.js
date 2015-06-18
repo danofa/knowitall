@@ -28,7 +28,7 @@ function main() {
 				case 1:
 					Users.find(function (err, users) {
 						console.log("\r\nUsers: ");
-						users.forEach(function (user) { console.log(" - " + user.name + " : " + user.login); });
+						users.forEach(function (user) { console.log("- Display name: " + user.name + ", Login: " + user.login); });
 						console.log(users.length + " users found.\r\n");
 						main();
 					});
