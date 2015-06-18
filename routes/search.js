@@ -10,21 +10,21 @@ var url = require('url');
 router.post('/', function (req, res, next) {
     var searchterms = '\"' + req.body.search.split(" ").join('\" \"') + '\"';
 
+    // if search is blank, just throw everything from db back.
     if (typeof (req.body.search) === 'undefined' || req.body.search.length == 0) {
         next();
+
     } else {
         Topics.find({ $text: { $search: searchterms } }, function (err, topics) {
-
-            if (err) console.log(__filename + " : " + err);
-
+            if (err) console.error(__filename + " : " + err);
+            
             Articles.find({ $text: { $search: searchterms } }).populate('group').exec(function (err, articles) {
                 if (err) console.log(__filename + " : " + err);
 
                 if (typeof (articles) === 'undefined')
                     articles = [];
 
-                topics = getRows(topics);
-                res.render('index', { topics: topics, articles: articles, search: req.body.search, searchcount: topics.length + articles.length });
+                  res.render('index', { topics: topics, articles: articles, search: req.body.search, searchcount: topics.length + articles.length });
             });
         });
     }
@@ -39,23 +39,9 @@ router.post('/', function (req, res, next) {
                 if (typeof (articles) === 'undefined')
                     articles = [];
 
-                topics = getRows(topics);
                 res.render('index', { topics: topics, articles: articles, search: req.body.search, searchcount: topics.length + articles.length });
             });
         });
     });
-
-function getRows(items) {
-    if (typeof (items) === 'undefined')
-        return [];
-
-    return items.reduce(function (prev, item, i) {
-        if (i % 4 === 0)
-            prev.push([item]);
-        else
-            prev[prev.length - 1].push(item);
-        return prev;
-    }, []);
-}
 
 module.exports = router;

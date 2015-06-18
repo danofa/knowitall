@@ -51,15 +51,4 @@ router.get('/*', function (req, res, next) {
     });
 });
 
-
-function getRows(items) {
-    return items.reduce(function (prev, item, i) {
-        if (i % 4 === 0)
-            prev.push([item]);
-        else
-            prev[prev.length - 1].push(item);
-        return prev;
-    }, []);
-}
-
 module.exports = router;

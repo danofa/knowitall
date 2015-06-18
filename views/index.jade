@@ -21,9 +21,9 @@ block content
   if topics && topics.length != 0
       //-for topic3 in topics
       ul.nav.nav-pills
-        for topic in topics
+        for t in topics
           li.navpills-custom
-            a(href='#{path + "/" + topic.title}' data-toggle="tooltip" data-container="body" data-placement="top" title="#{topic.description}") #{topic.title}
+            a(href='#{path + "/" + t.title}' data-toggle="tooltip" data-container="body" data-placement="top" title="#{t.description}") #{t.title}
       
     hr
   if articles && articles.length != 0 
