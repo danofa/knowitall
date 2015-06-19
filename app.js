@@ -64,6 +64,14 @@ app.use(session({
 }));
 
 // middleware setup
+
+app.use(function(req, res, next){
+  if(req.session){
+    res.locals.session = req.session;
+  }
+  next();
+});
+
 app.use(favicon(__dirname + '/public/images/fav.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());

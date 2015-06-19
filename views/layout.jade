@@ -21,8 +21,11 @@ html
             span.glyphicon.glyphicon-home
             |  Knowitall
         ol.nav.navbar-nav.navbar-right
+          if locals.session.authenticated
+            li.navbar-text#displayname= locals.session.displayname
+            li: a.glyphicon.glyphicon-log-out(href="/logout" title="logout")
           li
-            a.glyphicon.glyphicon-lock(href="/login")
+            a.glyphicon.glyphicon-log-in(href="/login" title="login")
                  
     .container
       form(method="POST" action="/search")

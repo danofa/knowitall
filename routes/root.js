@@ -50,6 +50,7 @@ router.post('/login', function (req, res, next) {
 
             if (user && typeof user !== 'undefined' && bcrypt.compareSync(req.body.password, user.hash)) {
                 sess.authenticated = true;
+
                 sess.displayname = user.name;
                 sess.login = user.login;
                 res.redirect('/admin');

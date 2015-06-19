@@ -17,6 +17,10 @@ div.error {
   color: red;
 }
 
+#displayname {
+	color: white;
+}
+
 table td {
   vertical-align: middle !important;
 }
