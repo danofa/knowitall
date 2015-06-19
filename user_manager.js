@@ -74,8 +74,7 @@ function adduser() {
 
 				var user = new Users({
 					login: answers.login,
-					password: hash,
-					salt: salt,
+					hash: hash,
 					name: answers.realname
 				});
 

@@ -28,6 +28,7 @@ var MongoStore = require('connect-mongo')(session);
 
 // model
 var articleModel = require("./models/article.js");
+var userModel = require("./models/user.js");
 
 // routing 
 var routes = require('./routes/root');
@@ -58,7 +59,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   secret: 'mysuper app secret',
-  cookie : { secure: true, httpOnly: false, maxAge: 60000 },
+  cookie : { secure: true, httpOnly: true, maxAge: (1000 * 60 * 60) },
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 

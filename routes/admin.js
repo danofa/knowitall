@@ -7,12 +7,20 @@ var mongoose = require('mongoose');
 var Articles = mongoose.model('Article');
 var Topics = mongoose.model('Topic');
 
+// catchall for checking https is being used, and for checking user is logged in
 router.all("*", function (req, res, next) {
-  console.error("https://" + req.hostname + req.path);
+
   if (!req.secure) {
     res.redirect("https://" + req.hostname + req.path);
   } else {
-    next();
+    
+    var sess = req.session;
+    if (sess.authenticated != true) {
+            res.status(401).send('Invalid credentials');
+    } else {
+            console.log("session variable data: " + sess);
+            next();
+    }
   }
 });
 

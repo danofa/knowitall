@@ -5,6 +5,8 @@ var router = express.Router();
 var Topics = require('mongoose').model('Topic');
 var Articles = require('mongoose').model('Article');
 var url = require('url');
+var bcrypt = require('bcryptjs');
+var Users = require('mongoose').model('User');
 
 // website index
 router.get('/', function (req, res, next) {
@@ -17,17 +19,47 @@ router.get('/', function (req, res, next) {
 // login page
 router.get('/login', function (req, res, next) {
     if (req.secure) {
-        res.render('login');
+        if (req.session.authenticated == true) {
+            res.redirect('/admin');
+        } else {
+            res.render('login');
+        }
+
     } else {
         res.redirect("https://" + req.hostname + req.path);
     }
 });
 
-router.post('/login', function (req, res, next) {
-    if (req.secure) {
-        res.redirect('/admin');
+// logout !
+router.get('/logout', function (req, res, next) {
+    if (req.secure && req.session.authenticated) {
+        req.session.destroy();
+        res.redirect('/');
     } else {
-        res.redirect("https://" + req.hostname + req.path);
+        next();
+    }
+});
+
+// check login credentials, turn away if failed!
+router.post('/login', function (req, res, next) {
+    if (req.secure && req.body.login && req.body.password) {
+
+        var sess = req.session;
+        Users.findOne({ login: req.body.login }, function (err, user) {
+            if (err) console.error(__filename + " : " + err);
+
+            if (user && typeof user !== 'undefined' && bcrypt.compareSync(req.body.password, user.hash)) {
+                sess.authenticated = true;
+                sess.displayname = user.name;
+                sess.login = user.login;
+                res.redirect('/admin');
+            } else {
+                res.status(401).send('Invalid credentials');
+            }
+        });
+
+    } else {
+        res.status(401).send('Invalid credentials');
     }
 });
 
