@@ -13,13 +13,13 @@ router.all("*", function (req, res, next) {
   if (!req.secure) {
     res.redirect("https://" + req.hostname + req.path);
   } else {
-    
     var sess = req.session;
+
     if (sess.authenticated != true) {
-            res.status(401).send('Invalid credentials');
+      res.status(401).send('Invalid credentials');
+
     } else {
-            console.log("session variable data: " + sess);
-            next();
+      next();
     }
   }
 });

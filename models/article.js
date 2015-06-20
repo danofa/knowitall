@@ -22,5 +22,5 @@ var topicSchema = new mongoose.Schema({
 
 topicSchema.index({title : "text", description:"text"});
 
-var Topic = mongoose.model('Topic', topicSchema);
-var Article = mongoose.model('Article', articleSchema);
+mongoose.model('Topic', topicSchema);
+mongoose.model('Article', articleSchema);

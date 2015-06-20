@@ -19,22 +19,20 @@ limitations under the License.
 
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var bodyParser = require('body-parser');
+var middleware = require('./middleware')
 var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
+var logging = require('./logging');
 
 // model
 var articleModel = require("./models/article.js");
 var userModel = require("./models/user.js");
 
 // routing 
-var routes = require('./routes/root');
-var admin = require('./routes/admin');
-var search = require('./routes/search')
+var routes = require('./routes/index');
 
+// express setup
 var app = express();
 
 // db setup
@@ -55,6 +53,7 @@ app.locals.md = require('marked');
 
 // session store setup
 app.set('trust proxy', 1);
+
 app.use(session({
   resave: false,
   saveUninitialized: false,
@@ -63,57 +62,10 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
-// middleware setup
+middleware(app);
 
-app.use(function(req, res, next){
-  if(req.session){
-    res.locals.session = req.session;
-  }
-  next();
-});
+routes(app);
 
-app.use(favicon(__dirname + '/public/images/fav.ico'));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
-app.disable("x-powered-by");
-
-app.use('/admin', admin);
-app.use('/search', search);
-app.use('/', routes);
-
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function (err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
-  });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function (err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
-});
-
+logging(app);
 
 module.exports = app;
