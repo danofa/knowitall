@@ -1,12 +1,12 @@
 /// <reference path="../typings/tsd.d.ts" />
 
-var express = require('express');
-var router = express.Router();
+var router = require('express').Router();
 var Topics = require('mongoose').model('Topic');
 var Articles = require('mongoose').model('Article');
+var Users = require('mongoose').model('User');
+
 var url = require('url');
 var bcrypt = require('bcryptjs');
-var Users = require('mongoose').model('User');
 
 // website index
 router.get('/', function (req, res, next) {

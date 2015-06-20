@@ -1,7 +1,6 @@
 /// <reference path="../typings/tsd.d.ts" />
 
-var express = require('express');
-var router = express.Router();
+var router = require('express').Router();
 var Topics = require('mongoose').model('Topic');
 var Articles = require('mongoose').model('Article');
 var url = require('url');

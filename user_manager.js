@@ -3,8 +3,8 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs')
 var inquirer = require("inquirer");
-
-var Users = require('./models/user.js');
+var userSchema = require('./models/user.js');
+var Users = mongoose.model('User');
 
 mongoose.connect('mongodb://127.0.0.1/testknowit', function (err) { if (err) { console.error("mongoose connection error: " + err); return; } });
 //mongoose.set('debug', true);

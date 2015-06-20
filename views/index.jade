@@ -19,31 +19,12 @@ block content
   if search
     h3 search results for '#{search}', #{searchcount} result(s).
   if topics && topics.length != 0
-      //-for topic3 in topics
       ul.nav.nav-pills
         for t in topics
           li.navpills-custom
             a(href='#{path + "/" + t.title}' data-toggle="tooltip" data-container="body" data-placement="top" title="#{t.description}") #{t.title}
-      
+
     hr
-  if articles && articles.length != 0 
-    .panel-group
-      for a in articles
-        - var group = (typeof(groupval) === 'undefined' ? a.group :  groupval);
-        .panel.panel-default
-          .panel-heading(style="border-radius: 4px;")
-            .panel-title
-              div
-                a.smaller(data-toggle="collapse" aria-expanded="false" aria-controls="#{a.quicklink}" href="##{a.quicklink}" )
-                    span.glyphicon.glyphicon-folder-open(style="margin-right: 5px; margin-left: 10px;")
-                    |   #{a.title}
-                a.bookmark.glyphicon.glyphicon-link.text-muted(style="margin-left: 10px;" data-toggle="tooltip" data-container="body" data-placement="top" 
-                  title="Bookmark Link" href="#{(search !== 'undefined' ? group.title + '#' + a.quicklink : path + '#' + a.quicklink)}")
-                span(style="margin-left: 10px;font-size: smaller;" data-toggle="tooltip" data-container="body" data-placement="top" title="#{group.description}") #{group.title}
-                span.pull-right(style="margin: 0px 10px;") modified: #{moment(a.modified).format("ddd D/M, ha")}
-                
-          .panel-collapse.collapse(id="#{a.quicklink}")
-            .panel-body(style="margin: 0px; background: #ffffff; border: 0px; border-radius: 4px;")!= md(a.body)
-              //-!{a.body.replace(/\n/g,"<br/>")}
-              
-    hr
+    
+  include ./includes/index_articles.jade
+    

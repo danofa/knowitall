@@ -27,6 +27,7 @@ var logging = require('./logging');
 
 // model
 var articleModel = require("./models/article.js");
+var topicModel = require("./models/topic.js");
 var userModel = require("./models/user.js");
 
 // routing 
