@@ -13,7 +13,7 @@ if articles && articles.length != 0
                 title="Bookmark Link" href="#{(search !== 'undefined' ? group.title + '#' + a.quicklink : path + '#' + a.quicklink)}")
               if locals.session.authenticated
                 a.small.glyphicon.glyphicon-edit.text-muted(style="margin-left: 10px; color: red;" title="edit article" href="/admin/article/edit/#{a._id}")
-              span(style="margin-left: 10px;font-size: smaller;" data-toggle="tooltip" data-container="body" data-placement="top" title="#{group.description}") #{group.title}
+              a(href="/#{group.title}" style="margin-left: 10px;font-size: smaller;" data-toggle="tooltip" data-container="body" data-placement="top" title="#{group.description}") #{group.title}
               span.pull-right(style="margin: 0px 10px;") modified: #{moment(a.modified).format("ddd D/M, ha")}
               
         .panel-collapse.collapse(id="#{a.quicklink}")
