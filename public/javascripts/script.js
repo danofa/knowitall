@@ -8,3 +8,10 @@ $(function () {
     }
 
 });
+
+function pApup() {
+    var pop = window.open("/admin/article/preview", "Preview", "height=600,width=900");
+    pop.onload = function () {
+        pop.document.getElementById('contentdiv').innerHTML = marked(document.getElementById('articleBody').value);
+    };
+}

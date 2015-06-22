@@ -37,8 +37,10 @@ var routes = require('./routes/index');
 var app = express();
 
 // db setup
-mongoose.connect('mongodb://127.0.0.1/testknowit', function (err) { if (err) { console.error("mongoose connection error: " + err); return; } });
+mongoose.connect('mongodb://127.0.0.1/knowitall', function (err) { if (err) { console.error("mongoose connection error: " + err); return; } });
 mongoose.set('debug', true);
+
+app.locals.apptitle = 'Knowitall';
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

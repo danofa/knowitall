@@ -14,7 +14,6 @@ block breadcrumbs
           li.active #{b}
         else 
           li: a(href="#{crumb}") #{b}
-        
 block content
   if search
     h3 search results for '#{search}', #{searchcount} result(s).

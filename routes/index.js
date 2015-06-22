@@ -2,8 +2,8 @@
 
 
 // routing 
-var routes = require('./root');
-var admin = require('./admin');
+var root = require('./root');
+var admin = require('./admin/');
 var search = require('./search')
 
 module.exports = function (app) {
@@ -16,8 +16,8 @@ module.exports = function (app) {
 		next();
 	});
 	
-	app.use('/admin', admin);
+	app.use('/admin/', admin);
 	app.use('/search', search);
-	app.use('/', routes);
+	app.use('/', root);
 
 };

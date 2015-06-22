@@ -6,33 +6,33 @@ block content
 	form.form-horizontal(method="POST")
 	
 		.form-group
-			label.control-label.col-sm-4(for='title') Title:			
-			.col-sm-4
+			label.control-label.col-sm-1(for='title') Title:			
+			.col-sm-7
 				input.form-control(type='text' name='title')
 			.col-sm-offset-4
 
 		.form-group
-			label.control-label.col-sm-4(for='group') Group:
-			.col-sm-4
+			label.control-label.col-sm-1(for='group') Group:
+			.col-sm-7
 				select.form-control(name="group")
 					each o in topicgroups
 						option(value="#{o._id}") #{o.title} / #{o.description}
 			.col-sm-offset-4
 			
 		.form-group
-			label.control-label.col-sm-4(for='quicklink') Quicklink:
-			.col-sm-4
+			label.control-label.col-sm-1(for='quicklink') Quicklink:
+			.col-sm-7
 				input.form-control(type='text' name='quicklink')
 			.col-sm-offset-4
 		
 		.form-group
-			label.control-label.col-sm-4(for='body') Body:
-			.col-sm-8
+			label.control-label.col-sm-1(for='body') Body:
+			.col-sm-11
 				textarea.form-control(name="body" rows="10")
 			
 			
 		.form-group
-			.col-sm-offset-4.col-sm-4
+			.col-sm-offset-1.col-sm-4
 				button.btn.btn-default.form-control(type='submit' id='submit' name='submit') SUBMIT
 		
 	include ../includes/links.jade

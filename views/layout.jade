@@ -19,7 +19,7 @@ html
         .navbar-header
           a.navbar-brand(href='/')
             span.glyphicon.glyphicon-home
-            |  Knowitall
+            |  #{locals.apptitle}
         ol.nav.navbar-nav.navbar-right
           if locals.session.authenticated
             li.navbar-text#displayname= locals.session.displayname

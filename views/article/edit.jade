@@ -6,14 +6,14 @@ block content
 	form.form-horizontal(method="POST" action="../update")
 		input(type="hidden" name="id" value="#{art._id}")
 		.form-group
-			label.control-label.col-sm-2(for='title') Title:			
-			.col-sm-6
+			label.control-label.col-sm-1(for='title') Title:			
+			.col-sm-7
 				input.form-control(type='text' name='title' value="#{art.title}")
 			.col-sm-offset-4
 
 		.form-group
-			label.control-label.col-sm-2(for='group') Group:
-			.col-sm-6
+			label.control-label.col-sm-1(for='group') Group:
+			.col-sm-7
 				select.form-control(name="group")
 					each o in topicgroups
 						if art.group && o._id.equals(art.group._id)
@@ -23,18 +23,22 @@ block content
 			.col-sm-offset-4
 			
 		.form-group
-			label.control-label.col-sm-2(for='quicklink') Quicklink:
-			.col-sm-6
+			label.control-label.col-sm-1(for='quicklink') Quicklink:
+			.col-sm-7
 				input.form-control(type='text' name='quicklink' value="#{art.quicklink}")
 			.col-sm-offset-4
 					
 		.form-group
-			label.control-label.col-sm-2(for='body') Body:
-			.col-sm-10
-				textarea.form-control(name="body" rows="10") #{art.body}
+			label.control-label.col-sm-1(for='body') Body:
+			.col-sm-11
+				textarea.form-control(name="body" rows="10" id="articleBody") #{art.body}
 			
 		.form-group
-			.col-sm-offset-2.col-sm-4
+			.col-sm-offset-1.col-sm-4
 				button.btn.btn-default.form-control(type='submit' id='submit' name='submit') SUBMIT
-		
+			.col-sm-2
+				script(src="https://raw.githubusercontent.com/chjj/marked/master/lib/marked.js")
+				button.btn.btn-default.form-control(type='button' id='preview' name='preview' onclick="pApup()") Preview
 	include ../includes/links.jade
+	
+	
