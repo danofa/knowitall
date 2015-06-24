@@ -12,14 +12,30 @@ li.navpills-custom > a:hover {
 	background-color:#ddd;	
 }
 
+div.article-panel > * {
+	font-size: medium;
+	padding: 0;
+}
+
+div.article-panel {
+	padding-left: 0;
+	padding-right: 0;
+}
+
 div.error {
   font-weight: bold;
   color: red;
   
 }
+#contentdiv {
+	border: 1px solid #bbb;	
+	padding: 20px;
+	border-radius: 5px;
+}
 
 #displayname {
 	color: white;
+	
 }
 
 table td {
