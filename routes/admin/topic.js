@@ -42,10 +42,34 @@ module.exports = function (router) {
 		Topics.find().populate('parent').exec(function (err, topics) {
 			if (err) console.log(__filename + " : " + err);
 
+            getChildren(topics);
+            
 			res.render('topic/list', { topics: topics });
 		});
 	});
 
+    
+    function getChildren(topics){
+        
+        console.log('looking for kids!');
+        
+            topics.forEach(function(t){
+               if(t.children.length > 0){
+                    console.log('found kid: '+ getKids(t.children);
+               } 
+            });
+
+        
+        function getKids(tm, ts){
+        ts.forEach(function(tt){
+           if(tt.parent && tt.parent._id.equals(t._id)){
+               console.log(tt);
+           } 
+        });
+        }
+    }
+    
+    
 	// edit topic
 	router.get('/topic/edit/:id', function (req, res) {
 		Topics.findOne({ '_id': mongoose.Types.ObjectId(req.params.id) }).populate('parent').exec(function (err, topic) {
