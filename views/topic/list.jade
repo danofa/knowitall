@@ -20,5 +20,23 @@ block content
 						i.glyphicon.glyphicon-trash
 					a.btn(href="edit/#{top._id}" title="Edit")
 						i.glyphicon.glyphicon-edit
+	
+	mixin displayChildren(topic, topics)
+		- var subTopics = getChTp(topic, topics);
+		if subTopics.length > 0
+			| #{topic.title} (+ child)
+			ul
+				each t in subTopics
+					li
+						mixin displayChildren(t, topics)
+		else
+			| #{topic.title} (+ child)
+			
+	ul.tree
+		li (+ child)
+		each top in topics
+			if !top.parent
+				li
+					+displayChildren(top, topics)
 
 	include ../includes/links.jade

@@ -28,17 +28,40 @@ Topics.find().populate('parent').exec(function (err, topics) {
 function getChildren(topic, topics) {
 
 
-//    console.log('<ul><li>' + topic.title + '</li>');
+    //    console.log('<ul><li>' + topic.title + '</li>');
 
-    topics.forEach(function (t) {
+    var subTopics = topics.filter(function (obj) {
+        return (obj.parent && mongoose.Types.ObjectId(topic._id).equals(mongoose.Types.ObjectId(obj.parent._id)));
+    });
 
-        if (t.parent && mongoose.Types.ObjectId(topic._id).equals(mongoose.Types.ObjectId(t.parent._id))) {
+    if (subTopics.length > 0) {
+        console.log(topic.title + '<ul>');
+
+        subTopics.forEach(function (t) {
             console.log('<li>');
             getChildren(t, topics);
             console.log('</li>');
-        }
-    });
-    console.log('</ul>');
+        });
+        
+        console.log('</ul>');
+        
+    } else {
+        console.log(topic.title);
+    }
+
+
+    /*
+        topics.forEach(function (t) {
+
+            if (t.parent && mongoose.Types.ObjectId(topic._id).equals(mongoose.Types.ObjectId(t.parent._id))) {
+                console.log('<li>');
+                getChildren(t, topics);
+                console.log('</li>');
+            }
+        });
+    */
+
+    
 }
 
 
