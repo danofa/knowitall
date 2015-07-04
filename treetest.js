@@ -28,8 +28,7 @@ Topics.find().populate('parent').exec(function (err, topics) {
 function getChildren(topic, topics) {
 
 
-    console.log('<ul><li>' + topic.title + '</li>');
-    console.log('<li> + add another child</li>');
+//    console.log('<ul><li>' + topic.title + '</li>');
 
     topics.forEach(function (t) {
 
