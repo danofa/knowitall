@@ -27,3 +27,11 @@ function pApup() {
         articlePreviewWindow.focus();
     }
 }
+
+function hideTreeItem(item){
+	item.className += "hidden";
+}
+
+function showTreeItem(item){
+	item.style.display = 'block';
+}

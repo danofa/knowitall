@@ -25,6 +25,7 @@ block content
 		- var subTopics = getChTp(topic, topics);
 		if subTopics.length > 0
 			| #{topic.title} (+ child)
+			a(href="#" onclick="hideTreeItem(this.parentNode)") hide
 			ul
 				each t in subTopics
 					li

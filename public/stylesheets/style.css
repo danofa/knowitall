@@ -112,6 +112,10 @@ a.bookmark {
   position:relative;
 }
 
+li.hidden > ul {
+	display: none;
+}
+
 .tree ul li:before {
   content:"";
   display:block;

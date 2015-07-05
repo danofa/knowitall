@@ -40,7 +40,7 @@ var app = express();
 app.locals.apptitle = 'Knowitall';
 
 // db setup
-mongoose.connect('mongodb://127.0.0.1/knowitall', function (err) { if (err) { console.error("mongoose connection error: " + err); return; } });
+mongoose.connect('mongodb://127.0.0.1/knowitall', function (err) { if (err) { console.error("mongoose connection error: " + err); process.exit(); } });
 mongoose.set('debug', true);
 
 // view engine setup
