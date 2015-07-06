@@ -1,3 +1,7 @@
+.hideme ul {
+	display: none;
+}
+
 body {
   padding-top: 70px;
 }
@@ -110,10 +114,6 @@ a.bookmark {
 //  color:#369;
 //  font-weight:bold;
   position:relative;
-}
-
-li.hidden > ul {
-	display: none;
 }
 
 .tree ul li:before {

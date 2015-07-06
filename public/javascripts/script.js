@@ -28,10 +28,11 @@ function pApup() {
     }
 }
 
-function hideTreeItem(item){
-	item.className += "hidden";
-}
-
-function showTreeItem(item){
-	item.style.display = 'block';
+function toggleTreeItem(item){
+    if($(item.parentNode).hasClass("hideme")){
+        
+        $(item.parentNode).removeClass("hideme");
+    } else {
+    $(item.parentNode).addClass("hideme");    
+    }
 }
