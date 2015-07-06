@@ -16,30 +16,34 @@ block content
                 else
                     td -
                 td
-                    a.btn(href="delete/#{top._id}" title="Delete")
-                        i.glyphicon.glyphicon-trash
-                    a.btn(href="edit/#{top._id}" title="Edit")
-                        i.glyphicon.glyphicon-edit
+                    a.btn.glyphicon.glyphicon-trash(href="delete/#{top._id}" title="Delete")
+                    a.btn.glyphicon.glyphicon-edit(href="edit/#{top._id}" title="Edit")
     
     mixin displayChildren(topic, topics)
         - var subTopics = getChTp(topic, topics);
         if subTopics.length > 0
-            | #{topic.title} (+ child) 
-            a.glyphicon.glyphicon-plus(href="#" name="#{topic.title}" onclick="toggleTreeItem(this)")
+            | #{topic.title} 
+            a.treebar.glyphicon.glyphicon-plus(href="add?pid=#{topic._id}")
+            a.treebar.glyphicon.glyphicon-edit(href="edit/#{topic._id}" title="Edit")
+            a.treebar.glyphicon.glyphicon-trash(href="delete/#{topic._id}" title="Delete")
             ul
                 each t in subTopics
                     li
                         mixin displayChildren(t, topics)
         else
-            | #{topic.title} (+ child)
+            | #{topic.title} 
+            a.treebar.glyphicon.glyphicon-plus(href="add?pid=#{topic._id}") 
+            a.treebar.glyphicon.glyphicon-edit(href="edit/#{topic._id}" title="Edit") 
+            a.treebar.glyphicon.glyphicon-trash(href="delete/#{topic._id}" title="Delete") 
             
     ul.tree
         li 
             ul
-                li (+ child)
+                li 
+                  a.glyphicon.glyphicon-plus(href="add")
                   each top in topics
                      if !top.parent
-                        li.hideme
+                        li
                            +displayChildren(top, topics)
 
     include ../includes/links.jade

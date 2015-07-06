@@ -8,8 +8,9 @@ module.exports = function (router) {
 	router.get('/topic/add', function (req, res) {
 		Topics.find(function (err, topics) {
 			if (err) console.log(__filename + " : " + err);
+			
 			res.render('topic/add', {
-				topicgroups: topics
+				topicgroups: topics, pid: req.query.pid
 			});
 		});
 	});

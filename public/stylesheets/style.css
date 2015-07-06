@@ -6,6 +6,10 @@ body {
   padding-top: 70px;
 }
 
+a.treebar {
+    margin-right: 3px;
+}
+
 .navpills-custom {
 	background: #eee;
 	border-radius: 4px;
@@ -90,7 +94,7 @@ a.bookmark {
 }
 
 .tree ul {
-  margin-left:1em; /* indentation */
+  margin-left:0.5em; /* indentation */
   position:relative;
 }
 
@@ -109,10 +113,11 @@ a.bookmark {
 
 .tree li {
   margin:0;
-  padding:0 1.5em; /* indentation + .5em */
+  padding:0 1em; /* indentation + .5em */
   line-height:2em; /* default list item's `line-height` */
 //  color:#369;
-//  font-weight:bold;
+  //font-weight:bold;
+    font-size: 1.05em;
   position:relative;
 }
 
