@@ -5,12 +5,14 @@ var Articles = mongoose.model('Article');
 var Topics = mongoose.model('Topic');
 
 module.exports = function (router) {
+    
+    
 	router.get('/topic/add', function (req, res) {
 		Topics.find(function (err, topics) {
 			if (err) console.log(__filename + " : " + err);
 			
 			res.render('topic/add', {
-				topicgroups: topics, pid: req.query.pid
+				topicgroups: topics, tid: req.query.tid
 			});
 		});
 	});
@@ -43,18 +45,32 @@ module.exports = function (router) {
 	});
 
 	// list topics
-	router.get('/topic/list', function (req, res) {
+	router.get('/topic/list/tree', function (req, res) {
 		Topics.find().populate('parent').exec(function (err, topics) {
 			if (err) console.log(__filename + " : " + err);
 
-			res.render('topic/list', {
+			res.render('topic/list/tree', {
 				topics: topics,
 				getChTp: getChildrenTopics
 			});
 		});
 	});
 
+	router.get('/topic/list/table', function (req, res) {
+		Topics.find().populate('parent').exec(function (err, topics) {
+			if (err) console.log(__filename + " : " + err);
 
+			res.render('topic/list/table', {
+				topics: topics
+			});
+		});
+	});
+    
+    router.get('/topic/list', function (req, res) {
+        res.redirect('/admin/topic/list/tree');
+    });
+    
+    
 	function getChildrenTopics(topic, topics) {
 		return topics.filter(function (obj) {
 			return (obj.parent && mongoose.Types.ObjectId(topic._id).equals(mongoose.Types.ObjectId(obj.parent._id)));

@@ -38,6 +38,8 @@ router.post('/', function (req, res, next) {
                 if (typeof (articles) === 'undefined')
                     articles = [];
 
+                var gv = {};
+                gv.title = "none";
                 res.render('index', { topics: topics, articles: articles, search: req.body.search, searchcount: topics.length + articles.length });
             });
         });

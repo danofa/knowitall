@@ -15,7 +15,7 @@ module.exports = function (router) {
     router.get('/article/add', function (req, res, next) {
         Topics.find(function (err, topics) {
       if (err) console.error(__filename + " : " + err);
-      res.render('article/add', { topicgroups: topics });
+      res.render('article/add', { topicgroups: topics, tid: req.query.tid });
         });
     });
 

@@ -23,8 +23,7 @@ block content
                 select.form-control(name="parent")
                     option(value="") -----
                     each o in topicgroups
-                        - console.log(pid && o._id == pid);
-                        if pid && o._id == pid
+                        if tid && o._id == tid
                             option(value="#{o._id}" selected) #{o.title} / #{o.description}
                         else
                             option(value="#{o._id}") #{o.title} / #{o.description}

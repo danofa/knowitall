@@ -1,38 +1,44 @@
 extends ../layout
 
 block content
-	if add_error
-		.error #{add_error}
-	form.form-horizontal(method="POST")
-	
-		.form-group
-			label.control-label.col-sm-1(for='title') Title:			
-			.col-sm-7
-				input.form-control(type='text' name='title')
-			.col-sm-offset-4
+    if add_error
+        .error #{add_error}
+    form.form-horizontal(method="POST")
+    
+        .form-group
+            label.control-label.col-sm-1(for='title') Title:			
+            .col-sm-7
+                input.form-control(type='text' name='title')
+            .col-sm-offset-4
 
-		.form-group
-			label.control-label.col-sm-1(for='group') Group:
-			.col-sm-7
-				select.form-control(name="group")
-					each o in topicgroups
-						option(value="#{o._id}") #{o.title} / #{o.description}
-			.col-sm-offset-4
-			
-		.form-group
-			label.control-label.col-sm-1(for='quicklink') Quicklink:
-			.col-sm-7
-				input.form-control(type='text' name='quicklink')
-			.col-sm-offset-4
-		
-		.form-group
-			label.control-label.col-sm-1(for='body') Body:
-			.col-sm-11
-				textarea.form-control(name="body" rows="10")
-			
-			
-		.form-group
-			.col-sm-offset-1.col-sm-4
-				button.btn.btn-default.form-control(type='submit' id='submit' name='submit') SUBMIT
-		
-	include ../includes/links.jade
+        .form-group
+            label.control-label.col-sm-1(for='group') Group:
+            .col-sm-7
+                select.form-control(name="group")
+                    each o in topicgroups
+                        if tid && o._id == tid
+                            option(value="#{o._id}" selected) #{o.title} / #{o.description}
+                        else
+                            option(value="#{o._id}") #{o.title} / #{o.description}
+            .col-sm-offset-4
+            
+        .form-group
+            label.control-label.col-sm-1(for='quicklink') Quicklink:
+            .col-sm-7
+                input.form-control(type='text' name='quicklink')
+            .col-sm-offset-4
+        
+        .form-group
+            label.control-label.col-sm-1(for='body') Body:
+            .col-sm-11
+                textarea.form-control(name="body" rows="10" id="articleBody")
+            
+            
+        .form-group
+            .col-sm-offset-1.col-sm-4
+                button.btn.btn-default.form-control(type='submit' id='submit' name='submit') SUBMIT
+            .col-sm-2
+                script(src="https://raw.githubusercontent.com/chjj/marked/master/lib/marked.js")
+                button.btn.btn-default.form-control(type='button' id='preview' name='preview' onclick="pApup()") Preview
+        
+    include ../includes/links.jade

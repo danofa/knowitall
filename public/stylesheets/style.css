@@ -2,6 +2,23 @@
 	display: none;
 }
 
+.mytb {
+    display: none;
+}
+
+li.mytp span:hover span.mytb {
+    display: inline-block;
+}
+
+li.mytp span.mytp {
+    display: block;
+    width: 100%;
+}
+
+li.mytp {
+        cursor: pointer;
+}
+
 body {
   padding-top: 70px;
 }
