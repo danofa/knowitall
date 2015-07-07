@@ -1,0 +1,22 @@
+extends ../../layout
+
+block content
+    table.table.table-hover.table-bordered.table-striped.table-condensed
+        th ID
+        th Title
+        th Description
+        th Parent
+        each top in topics
+            tr
+                td= top._id
+                td= top.title
+                td= top.description
+                if top.parent
+                    td= top.parent.title
+                else
+                    td -
+                td
+                    a.btn.glyphicon.glyphicon-trash(href="../delete/#{top._id}" title="Delete")
+                    a.btn.glyphicon.glyphicon-edit(href="../edit/#{top._id}" title="Edit")
+    
+    include ../../includes/links.jade

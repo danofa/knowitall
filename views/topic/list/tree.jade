@@ -1,0 +1,34 @@
+extends ../../layout
+
+block content
+  div.container
+
+    mixin toolbar(topic)
+      span.mytb(style="margin-left: 5px;")
+        a.treebar.glyphicon.glyphicon-plus(href="../add?pid=#{topic._id}" data-toggle="tooltip" data-placement="top" title="add new topic")
+        a.treebar.glyphicon.glyphicon-file(href="../../article/add?tid=#{topic._id}" data-toggle="tooltip" data-placement="top" title="add article")
+        a.treebar.glyphicon.glyphicon-edit(href="../edit/#{topic._id}" data-toggle="tooltip" data-placement="top" title="edit topic")
+        a.treebar.glyphicon.glyphicon-trash(href="../delete/#{topic._id}" data-toggle="tooltip" data-placement="top" title="delete topic")
+    
+
+    mixin displayChildren(topic, topics)
+        - var subTopics = getChTp(topic, topics);
+            span.mytp(data-toggle="tooltip" data-placement="left" title="#{topic.description}") #{topic.title} 
+              +toolbar(topic)
+        if subTopics.length > 0
+            ul
+                each t in subTopics
+                    li.mytp
+                        mixin displayChildren(t, topics)
+            
+    ul.tree
+        li 
+            ul
+                li
+                  a.treebar.glyphicon.glyphicon-plus(href="../add" data-toggle="tooltip" data-placement="top" title="add new topic")
+                  each top in topics
+                     if !top.parent
+                        li.mytp
+                           +displayChildren(top, topics)
+
+  include ../../includes/links.jade
