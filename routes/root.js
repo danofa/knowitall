@@ -76,6 +76,7 @@ router.get('/*', function (req, res, next) {
         } else {
             Topics.find({ parent: parent._id }, function (err, topics) {
                 if (err) console.error(__filename + " : " + err);
+                
                 Articles.find({ group: parent._id }).exec(function (err, articles) {
                     res.render('index', { groupval: parent, topics: topics, articles: articles, breadcrumbs: data });
                 });

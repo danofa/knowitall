@@ -26,6 +26,21 @@ html
             li: a.glyphicon.glyphicon-log-out(href="/logout" title="logout")
           li
             a.glyphicon.glyphicon-log-in(href="/login" title="login")
+            
+        if locals.session.authenticated
+          ol.nav.navbar-nav.navbar-right
+            li.dropdown
+              a.dropdown-toggle(href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") admin
+                span.caret
+              ul.dropdown-menu
+                li: a(href="/admin") Admin Index
+                li.divider(role="separator")
+                li: a(href="/admin/topic/list/tree") List Topics ( tree )
+                li: a(href="/admin/topic/list/table") List Topics ( table )    
+                li: a(href="/admin/topic/add") Add Topic
+                li.divider(role="separator")
+                li: a(href="/admin/article/list") List Articles
+                li: a(href="/admin/article/add") Add Article
                  
     .container
       form(method="POST" action="/search")
