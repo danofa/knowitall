@@ -5,7 +5,7 @@ block content
 
     mixin toolbar(topic)
       span.mytb(style="margin-left: 5px;")
-        a.treebar.glyphicon.glyphicon-plus(href="../add?pid=#{topic._id}" data-toggle="tooltip" data-placement="top" title="add new topic")
+        a.treebar.glyphicon.glyphicon-plus(href="../add?tid=#{topic._id}" data-toggle="tooltip" data-placement="top" title="add new topic")
         a.treebar.glyphicon.glyphicon-file(href="../../article/add?tid=#{topic._id}" data-toggle="tooltip" data-placement="top" title="add article")
         a.treebar.glyphicon.glyphicon-edit(href="../edit/#{topic._id}" data-toggle="tooltip" data-placement="top" title="edit topic")
         a.treebar.glyphicon.glyphicon-trash(href="../delete/#{topic._id}" data-toggle="tooltip" data-placement="top" title="delete topic")
