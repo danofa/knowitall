@@ -29,6 +29,7 @@ block content
         for t in topics
           li.navpills-custom
             a(href='#{path + "/" + t.title}' data-toggle="tooltip" data-container="body" data-placement="top" title="#{t.description}") #{t.title}
+              span.badge(style="margin-left: 5px;" data-toggle="tooltip" data-container="body" data-placement="right" title="#{t.child_articles_count} sub articles in topic") #{t.child_articles_count}
 
     hr
     

@@ -10,6 +10,8 @@ module.exports = function (app) {
 	
 	// push current session into response locals for jade
 	app.use(function (req, res, next) {
+		res.locals.ref = req.get('referrer');
+
 		if (req.session) {
 			res.locals.session = req.session;
 		}

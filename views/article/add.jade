@@ -4,7 +4,7 @@ block content
     if add_error
         .error #{add_error}
     form.form-horizontal(method="POST")
-    
+        input(type="hidden" name="refurl" value="#{ref}")
         .form-group
             label.control-label.col-sm-1(for='title') Title:			
             .col-sm-7
