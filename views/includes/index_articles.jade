@@ -8,7 +8,7 @@ if articles && articles.length != 0
             .col-md-12
               .row
                 .col-md-6.col-sm-6.text-left
-                  a(data-toggle="collapse" aria-expanded="false" aria-controls="t#{a.quicklink}" href="#t#{a.quicklink}" )
+                  a(data-toggle="collapse" aria-expanded="false" aria-controls="#{a.quicklink}" href="##{a.quicklink}" )
                     i.glyphicon.glyphicon-folder-open(style="margin-right: 8px;")
                     | #{a.title}
                   if group    
@@ -24,6 +24,6 @@ if articles && articles.length != 0
                 .col-md-6.col-sm-6.text-right
                   span(style="margin: 0px 10px;") modified: #{moment(a.modified).format("ddd D/M, ha")}
                 
-        .panel-collapse.collapse(id="t#{a.quicklink}")
+        .panel-collapse.collapse(id="#{a.quicklink}")
           .panel-body(style="margin: 0px; background: #ffffff; border: 0px; border-radius: 4px;")!= md(a.body)
   hr
