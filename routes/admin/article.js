@@ -12,6 +12,11 @@ module.exports = function (router) {
         res.render('article/preview');
     });
 
+    // get add comment window
+    router.get('/article/comment', function(rq, res, next){
+        res.render('article/comment');
+    });
+
     // add article
     router.get('/article/add', function (req, res, next) {
         Topics.find(function (err, topics) {

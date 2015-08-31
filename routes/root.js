@@ -12,8 +12,14 @@ var bcrypt = require('bcryptjs');
 router.get('/', function (req, res, next) {
     Topics.find({ parent: null }, function (err, topics) {
         if (err) console.error(__filename + " : " + err);
-        res.render('index', { topics: topics });
-    });
+        
+        // find last 10 articles modified
+        Articles.find().sort({ modified: -1 }).limit(10).populate('group').exec(function (err, articles) {
+            if(err) console.error(__filename + " : " + err);
+            
+            res.render('index', { topics: topics, lastten: true, articles: articles });
+        });
+    }).sort({ title: 1 });
 });
 
 // login page
@@ -76,11 +82,11 @@ router.get('/*', function (req, res, next) {
         } else {
             Topics.find({ parent: parent._id }, function (err, topics) {
                 if (err) console.error(__filename + " : " + err);
-                
-                Articles.find({ group: parent._id }).exec(function (err, articles) {
+
+                Articles.find({ group: parent._id }).sort({ title: 1 }).exec(function (err, articles) {
                     res.render('index', { groupval: parent, topics: topics, articles: articles, breadcrumbs: data });
                 });
-            });
+            }).sort({ title: 1 });
         }
     });
 });
