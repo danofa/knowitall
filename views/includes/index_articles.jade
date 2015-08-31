@@ -27,7 +27,6 @@ if articles && articles.length != 0
         .panel-collapse.collapse(id="#{a.quicklink}")
           .panel-body(style="margin: 0px; background: #ffffff; border: 0px; border-radius: 4px;")!= md(a.body)
           if locals.session.authenticated
-            script(src="/javascripts/comment.js")
             .panel-footer.article-panel(style="padding: 5px;")
               a.smaller(data-toggle="collapse" aria-expanded="false" aria-controls="#{a.quicklink}comment" href="##{a.quicklink}comment")
                 i.glyphicon.glyphicon-plus
