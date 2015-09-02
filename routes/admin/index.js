@@ -28,10 +28,11 @@ router.get('/', function (req, res, next) {
   res.render('admin/index', {});
 });
 
-
 require('./article.js')(router);
 
 require('./topic.js')(router);
+
+require('./site_admin.js')(router);
 
 router.use(function(req,res,next){
   res.sendStatus(404);  

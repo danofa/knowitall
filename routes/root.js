@@ -59,6 +59,7 @@ router.post('/login', function (req, res, next) {
 
                 sess.displayname = user.name;
                 sess.login = user.login;
+                sess.uid = user._id;
                 res.redirect('/admin');
             } else {
                 res.status(401).send('Invalid credentials');

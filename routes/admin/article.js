@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var Articles = mongoose.model('Article');
 var Topics = mongoose.model('Topic');
 var Utils = require('../../utils.js');
+var Comments = mongoose.model('Comment');
 
 module.exports = function (router) {
   
@@ -12,9 +13,43 @@ module.exports = function (router) {
         res.render('article/preview');
     });
 
-    // get add comment window
-    router.get('/article/comment', function(rq, res, next){
-        res.render('article/comment');
+    router.post('/article/comment', function (req, res) {
+        var sess = req.session;
+        console.log("user id: " + sess.uid);
+        Articles.findOne({ _id: new mongoose.Types.ObjectId(req.body.article) }).exec(function (err, article) {
+            var newComment = new Comments({
+                userid: new mongoose.Types.ObjectId(sess.uid),
+                username: sess.displayname,
+                body: req.body.body,
+                created: new Date(),
+                modified: new Date()
+            });
+
+            article.comments.push(newComment);
+            article.comments.sort(function (a, b) {
+                return b.modified.getTime() - a.modified.getTime();
+            });
+            
+            article.save(function (err) {
+                if (err) {
+                    console.error(__filename + " : " + err);
+                    var errObj = {
+                        err: err,
+                        success: false
+                    };
+
+                    res.send(errObj);
+                    
+                } else {
+                    var resObj = {
+                        success: true,
+                        comment: newComment                        
+                    };
+                    res.send(resObj);
+                }
+            });
+
+        });
     });
 
     // add article
@@ -28,11 +63,14 @@ module.exports = function (router) {
 
     router.post('/article/add', function (req, res) {
         var topicId = new mongoose.Types.ObjectId(req.body.group);
+
         var newArt = new Articles({
             title: req.body.title,
             quicklink: req.body.quicklink.replace(/ /g, "-"),
             body: req.body.body,
-            group: topicId
+            group: topicId,
+            createdby: req.session.uid,
+            lastmodfiedby: req.session.uid
         });
 
         newArt.save(function (err) {
@@ -87,15 +125,17 @@ module.exports = function (router) {
             article.modified = new Date;
             article.group = new mongoose.Types.ObjectId(req.body.group);
 
-            article.save(function (edit_err) {
-                if (edit_err) {
-                    res.redirect('edit/' + article._id + '?err=' + edit_err);
-                } else {
-                    Utils.calculateAritcleCounts(function () {
-                        res.redirect("list");
-                    });
-                }
-            });
+            article.
+
+                article.save(function (edit_err) {
+                    if (edit_err) {
+                        res.redirect('edit/' + article._id + '?err=' + edit_err);
+                    } else {
+                        Utils.calculateAritcleCounts(function () {
+                            res.redirect("list");
+                        });
+                    }
+                });
         });
     });
 

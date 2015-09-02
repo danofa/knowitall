@@ -1,3 +1,18 @@
+span.comment-header {
+  color: #337AB7;
+  margin-left: 3px;
+  font-weight: bold;
+  font-size: smaller;
+}
+
+.comment-block {
+  background: #eee;
+  padding: 0px;
+}
+
+.comment-block > p {
+    margin-left: 3px;
+}
 .hideme ul {
 	display: none;
 }
