@@ -6,7 +6,7 @@ var inquirer = require("inquirer");
 var userSchema = require('./models/user.js');
 var Users = mongoose.model('User');
 
-mongoose.connect('mongodb://127.0.0.1/testknowit', function (err) { if (err) { console.error("mongoose connection error: " + err); return; } });
+mongoose.connect('mongodb://127.0.0.1/knowitall', function (err) { if (err) { console.error("mongoose connection error: " + err); return; } });
 //mongoose.set('debug', true);
 
 function main() {
