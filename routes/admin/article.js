@@ -61,7 +61,7 @@ module.exports = function (router) {
 
 
     router.post('/article/add', function (req, res) {
-        console.log('last mod: ' + req.session.uid);
+ 
         var topicId = new mongoose.Types.ObjectId(req.body.group);
 
         var newArt = new Articles({
@@ -72,7 +72,7 @@ module.exports = function (router) {
             createdby: req.session.uid,
             lastmodfiedby: req.session.uid
         });
-console.log('stage 2');
+
         newArt.save(function (err) {
             if (err) {
                  if (err) console.error(__filename + " : " + err);
@@ -125,8 +125,8 @@ console.log('stage 2');
             article.body = req.body.body;
             article.modified = new Date;
             article.group = new mongoose.Types.ObjectId(req.body.group);
-
-            article.
+            article.lastmodifiedby = req.session.uid;
+            
 
                 article.save(function (edit_err) {
                     if (edit_err) {
