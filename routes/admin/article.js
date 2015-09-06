@@ -48,7 +48,6 @@ module.exports = function (router) {
                     res.send(resObj);
                 }
             });
-
         });
     });
 
@@ -62,6 +61,7 @@ module.exports = function (router) {
 
 
     router.post('/article/add', function (req, res) {
+        console.log('last mod: ' + req.session.uid);
         var topicId = new mongoose.Types.ObjectId(req.body.group);
 
         var newArt = new Articles({
@@ -72,9 +72,10 @@ module.exports = function (router) {
             createdby: req.session.uid,
             lastmodfiedby: req.session.uid
         });
-
+console.log('stage 2');
         newArt.save(function (err) {
             if (err) {
+                 if (err) console.error(__filename + " : " + err);
                 res.render('article/add', { add_error: err });
             } else {
                 Utils.incrementAritclesCount(topicId, function (err) {
