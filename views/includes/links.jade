@@ -1,9 +1,10 @@
-ul.nav.nav-pills
-	li: a(href="/admin") Admin Index
-ul.nav.nav-pills
-	li: a(href="/admin/article/list") List Articles
-	li: a(href="/admin/article/add") Add Article
-ul.nav.nav-pills
-	li: a(href="/admin/topic/list/tree") List Topics ( tree )
-	li: a(href="/admin/topic/list/table") List Topics ( table )    
-	li: a(href="/admin/topic/add") Add Topic
+li: a(href="/admin") Admin Index
+li.divider(role="separator")
+li: a(href="/admin/topic/list/tree") List Topics ( tree )
+li: a(href="/admin/topic/list/table") List Topics ( table )    
+li: a(href="/admin/topic/add") Add Topic
+li.divider(role="separator")
+li: a(href="/admin/article/list") List Articles
+li: a(href="/admin/article/add") Add Article
+li.divider(role="separator")
+li: a(href="/admin/siteadmin") Site Admin Index

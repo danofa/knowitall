@@ -1,0 +1,20 @@
+extends ../../layout
+
+block content
+	form
+		| login name: 
+		input(type="text"  id="userlogin")
+		br
+		| user name: 
+		input(type="text"  id="username")
+		br
+		| password: 
+		input(type="password" id="pass")
+		| confirm 
+		input(type="password" id="confirmpass")
+		hr
+		input(type="button" value="add" onclick="adduser();")
+		
+	div.result
+	script(src="/javascripts/siteadmin.js")
+		

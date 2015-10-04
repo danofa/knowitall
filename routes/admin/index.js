@@ -18,6 +18,7 @@ router.all("*", function (req, res, next) {
       res.status(401).send('Invalid credentials');
 
     } else {
+      sess.touch();
       next();
     }
   }

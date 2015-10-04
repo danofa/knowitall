@@ -15,7 +15,7 @@ module.exports = function (router) {
 
     router.post('/article/comment', function (req, res) {
         var sess = req.session;
-        console.log("user id: " + sess.uid);
+        
         Articles.findOne({ _id: new mongoose.Types.ObjectId(req.body.article) }).exec(function (err, article) {
             var newComment = new Comments({
                 userid: new mongoose.Types.ObjectId(sess.uid),

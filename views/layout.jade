@@ -33,14 +33,7 @@ html
               a.dropdown-toggle(href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") admin
                 span.caret
               ul.dropdown-menu
-                li: a(href="/admin") Admin Index
-                li.divider(role="separator")
-                li: a(href="/admin/topic/list/tree") List Topics ( tree )
-                li: a(href="/admin/topic/list/table") List Topics ( table )    
-                li: a(href="/admin/topic/add") Add Topic
-                li.divider(role="separator")
-                li: a(href="/admin/article/list") List Articles
-                li: a(href="/admin/article/add") Add Article
+                include includes/links.jade
 
         ol.nav.navbar-nav.navbar-right
           li.dropdown
@@ -64,6 +57,8 @@ html
       block content
 
     .container.text-center.footer
+      br
+      hr
       a(href="/LICENSE-2.0.txt" title="Copyright 2015 Dion Mitchell under Apache 2.0") Copyright 2015
       br
       a(href="https://github.com/danofa/knowitall")  Source  

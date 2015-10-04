@@ -20,7 +20,8 @@ var articleSchema = new mongoose.Schema({
 	group: { type: Schema.Types.ObjectId, required: '{PATH} is a required element!', ref: 'Topic' },
 	comments: { type: [commentSchema] },
 	createdby : { type: Schema.Types.ObjectId, ref: 'User' },
-	lastmodifiedby:{ type: Schema.Types.ObjectId, ref: 'User' } 
+	lastmodifiedby:{ type: Schema.Types.ObjectId, ref: 'User' },
+	securitygroup: {type: Schema.Types.ObjectId, ref: 'Securitygroup' }
 });
 
 
