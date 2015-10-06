@@ -3,10 +3,10 @@ extends ../../layout
 block content
 	form
 		| login name: 
-		input(type="text"  id="userlogin")
+		input(type="text"  placeholder="bob"  id="userlogin")
 		br
 		| user name: 
-		input(type="text"  id="username")
+		input(type="text"  placeholder="Bob Smith" id="username")
 		br
 		| password: 
 		input(type="password" id="pass")
@@ -16,5 +16,7 @@ block content
 		input(type="button" value="add" onclick="adduser();")
 		
 	div.result
+	br
+	a(href="/admin/siteadmin") < Return <
 	script(src="/javascripts/siteadmin.js")
 		
