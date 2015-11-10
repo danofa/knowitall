@@ -51,12 +51,12 @@ router.post('/login', function (req, res, next) {
     if (req.secure && req.body.login && req.body.password) {
 
         var sess = req.session;
-        Users.findOne({ login: req.body.login }, function (err, user) {
+        Users.findOne({ login: req.body.login }).populate('secgroups').exec(function (err, user) {
             if (err) console.error(__filename + " : " + err);
 
             if (user && typeof user !== 'undefined' && bcrypt.compareSync(req.body.password, user.hash)) {
                 sess.authenticated = true;
-
+                sess.secgroups = user.secgroups;
                 sess.displayname = user.name;
                 sess.login = user.login;
                 sess.uid = user._id;

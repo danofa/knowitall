@@ -26,7 +26,7 @@ router.all("*", function (req, res, next) {
 
 // admin index
 router.get('/', function (req, res, next) {
-  res.render('admin/index', {});
+  res.render('admin/index', {secgroups: req.session.secgroups});
 });
 
 require('./article.js')(router);

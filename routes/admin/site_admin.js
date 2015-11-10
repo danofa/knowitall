@@ -18,12 +18,18 @@ module.exports = function (router) {
 		});
 	});
 
-	router.get('/siteadmin/editgroup', function (req, res, next) {
+	router.get('/siteadmin/editsecgroup', function (req, res, next) {
 		res.render('admin/site_admin/edit_groups');
 	});
 
+	router.get('/siteadmin/addsecgroup', function (req, res, next) {
+		res.render('admin/site_admin/add_group', { secgroup: new Secgroups });
+	});
+
 	router.get('/siteadmin/edituser', function (req, res, next) {
-		Users.findOne({ _id: req.query.uid }, { hash: 0 }).exec(function (err, user) {
+		Users.findOne({ _id: req.query.uid }, { hash: 0 })
+			.populate('secgroups')
+			.exec(function (err, user) {
 			if (err) console.error(__filename + err);
 			res.render('admin/site_admin/edit_users', { user: user });
 		});
@@ -96,8 +102,8 @@ module.exports = function (router) {
 			});
 		}
 	});
-	
+
 	router.post('/siteadmin/adduser', function (req, res, next) {
 		var result = { msg: "" }
-	});	
+	});
 };

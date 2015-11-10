@@ -14,7 +14,7 @@ block content
 		| reset pass
 		input(type="text" id="pass")
 		input(type="button" value="reset password" onclick="resetpass();")
-	
+		| #{user.secgroups} 
 	div.result
 	script(src="/javascripts/siteadmin.js")
 		

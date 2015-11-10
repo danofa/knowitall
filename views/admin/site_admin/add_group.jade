@@ -1,0 +1,24 @@
+extends ../../layout
+
+block content
+	form
+		| group name: 
+		input(type="text"  id="userlogin")
+		br
+		| group description: 
+		input(type="text"  id="username")
+		hr
+		table.table.table-striped
+			each perm, key in secgroup.permissions
+					if(key.substr(0,4) == 'can_')
+						tr
+							td #{key}
+							td
+								select
+									option(value="0") false
+									option(value="1") true
+		input(type="button" value="add" onclick="addgroup();")
+		
+	div.result
+	script(src="/javascripts/siteadmin.js")
+		
