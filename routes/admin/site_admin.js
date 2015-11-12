@@ -100,12 +100,6 @@ module.exports = function (router) {
 			});
 		}
 	});
-
-<<<<<<< HEAD
-	router.post('/siteadmin/adduser', function (req, res, next) {
-		var result = { msg: "" }
-	});
-=======
 	// add user 
 	router.post('/siteadmin/adduser', function (req, res, next) {
 		var newUser = {
@@ -150,7 +144,4 @@ module.exports = function (router) {
 	function getHash(password) {
 		return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 	}
-
-
->>>>>>> 252da3417d37775a39a52ba9bd912d001521673f
 };
