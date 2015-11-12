@@ -40,7 +40,6 @@ module.exports = function (router) {
 	});
 
 	/* update user password in db, create a new hash */
-
 	router.post('/siteadmin/updateuserpass', function (req, res, next) {
 		if (req.body.updatepass) {
 			var salt = bcrypt.genSaltSync(10);
@@ -73,7 +72,6 @@ module.exports = function (router) {
 	
 	
 	// update user details ( login, name )
-	
 	router.post('/siteadmin/updateuser', function (req, res, next) {
 		var result = { msg: "" }
 
@@ -103,7 +101,56 @@ module.exports = function (router) {
 		}
 	});
 
+<<<<<<< HEAD
 	router.post('/siteadmin/adduser', function (req, res, next) {
 		var result = { msg: "" }
 	});
+=======
+	// add user 
+	router.post('/siteadmin/adduser', function (req, res, next) {
+		var newUser = {
+			login: req.body.login,
+			name: req.body.name,
+			hash: getHash(req.body.pass)
+		}
+
+		var result = { msg: "" };
+
+		Users.create(newUser, function (err, user) {
+			if (err) {
+				console.error(__filename + " : " + err);
+				result.msg += err;
+			} else {
+				result.msg += "User added!"
+			}
+			res.send(result);
+		});
+	});
+
+	// delete user
+	router.get('/siteadmin/deluser', function (req, res, next) {
+
+		var result = { msg: "" };
+
+		Users.findOneAndRemove({ _id: mongoose.Types.ObjectId(req.query.uid) }, function (err) {
+			if (err) {
+				console.error(__filename + " : " + err);
+				result.msg += err;
+			} else {
+				result.msg += "User deleted!";
+			}
+			res.redirect('/admin/siteadmin');
+		})
+	});
+
+
+
+
+	/* general util functions */
+	function getHash(password) {
+		return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+	}
+
+
+>>>>>>> 252da3417d37775a39a52ba9bd912d001521673f
 };

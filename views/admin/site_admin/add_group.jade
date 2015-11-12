@@ -14,7 +14,7 @@ block content
 						tr
 							td #{key}
 							td
-								select
+								select(name="#{key}")
 									option(value="0") false
 									option(value="1") true
 		input(type="button" value="add" onclick="addgroup();")
