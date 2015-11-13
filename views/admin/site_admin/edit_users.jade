@@ -9,12 +9,22 @@ block content
 		| user name: 
 		input(type="text"  value="#{user.name}" id="username")
 		br
+		| security groups: 
+		select
+			each sec in user.secgroups
+				option(value="#{sec}") #{sec}
+		a.glyphicon.glyphicon-plus(href="#" style="margin-left:10px;" data-toggle="tooltip" data-placement="top" title="Add security group")
+		a.glyphicon.glyphicon-trash(href="#" style="margin-left:10px;" data-toggle="tooltip" data-placement="top" title="remove security group")
+		br
+		span
+		| #{user}
+		br
 		input(type="button" value="update" onclick="updateuser();")
 		hr
 		| reset pass
 		input(type="text" id="pass")
 		input(type="button" value="reset password" onclick="resetpass();")
-		| #{user.secgroups} 
+		br
 	div.result
 	br
 	a(href="/admin/siteadmin") < Return <

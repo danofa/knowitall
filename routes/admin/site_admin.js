@@ -18,21 +18,17 @@ module.exports = function (router) {
 		});
 	});
 
-	router.get('/siteadmin/editsecgroup', function (req, res, next) {
-		res.render('admin/site_admin/edit_groups');
-	});
-
 	router.get('/siteadmin/addsecgroup', function (req, res, next) {
 		res.render('admin/site_admin/add_group', { secgroup: new Secgroups });
 	});
 
 	router.get('/siteadmin/edituser', function (req, res, next) {
 		Users.findOne({ _id: req.query.uid }, { hash: 0 })
-			.populate('secgroups')
+		//			.populate('secgroups')
 			.exec(function (err, user) {
-			if (err) console.error(__filename + err);
-			res.render('admin/site_admin/edit_users', { user: user });
-		});
+				if (err) console.error(__filename + err);
+				res.render('admin/site_admin/edit_users', { user: user });
+			});
 	});
 
 	router.get('/siteadmin/adduser', function (req, res, next) {
@@ -90,7 +86,7 @@ module.exports = function (router) {
 						if (err) result.msg += err;
 						else {
 							result.success = true;
-							result.msg += "User details updated!";
+							result.msg += "User details updated! (changes visible at next login)";
 						}
 
 						res.send(result);
@@ -102,20 +98,30 @@ module.exports = function (router) {
 	});
 	// add user 
 	router.post('/siteadmin/adduser', function (req, res, next) {
+		var newSecGroup = new Secgroups;
+		var result = { msg: "" };
+
 		var newUser = {
 			login: req.body.login,
 			name: req.body.name,
 			hash: getHash(req.body.pass)
-		}
+		};
 
-		var result = { msg: "" };
+		newSecGroup.name = newUser.login;
+		newSecGroup.description = "default security group for user: " + newUser.login + " / " + newUser.name;
 
+		newUser.secgroups = [newSecGroup._id];
 		Users.create(newUser, function (err, user) {
 			if (err) {
 				console.error(__filename + " : " + err);
 				result.msg += err;
 			} else {
-				result.msg += "User added!"
+				result.msg += "User added! "
+
+				newSecGroup.save(function (err) {
+					if (err) console.err("error in default user security group creation: " + err);
+				});
+
 			}
 			res.send(result);
 		});
@@ -137,7 +143,51 @@ module.exports = function (router) {
 		})
 	});
 
+	// edit security group
+	router.get('/siteadmin/editsecgroup', function (req, res, next) {
+		Secgroups.findOne({ _id: mongoose.Types.ObjectId(req.query.gid) }, function (err, secgroup) {
+			res.render('admin/site_admin/edit_groups', { secgroup: secgroup });
+		});
+	});
 
+
+	// update security group
+	router.post('/siteadmin/updatesecgroup', function (req, res, next) {
+		Secgroups.findOne({ _id: mongoose.Types.ObjectId(req.body.gid) }, function (err, secgroup) {
+			if (err) console.err("err in update of security group : " + err);
+			else {
+				for (var k in req.body) {
+					secgroup.permissions[k] = req.body[k];
+				}
+				secgroup.name = req.body.groupname;
+				secgroup.description = req.body.groupdescription;
+
+				secgroup.save(function (err) {
+					if (err) console.error("error on save of security group" + err);
+					else {
+						res.send({msg:"group updated!"});
+					}
+				});
+			}
+		});
+	});
+	
+	
+	// delete security group
+	router.get('/siteadmin/delsecgroup', function (req, res, next) {
+
+		var result = { msg: "" };
+
+		Secgroups.findOneAndRemove({ _id: mongoose.Types.ObjectId(req.query.gid) }, function (err) {
+			if (err) {
+				console.error(__filename + " : " + err);
+				result.msg += err;
+			} else {
+				result.msg += "Security group deleted!";
+			}
+			res.redirect('/admin/siteadmin');
+		});
+	});
 
 
 	/* general util functions */

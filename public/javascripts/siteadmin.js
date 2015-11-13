@@ -24,6 +24,18 @@ function updateuser() {
 		});
 }
 
+function updatesecgroup() {
+	$.post("/admin/siteadmin/updatesecgroup",
+		$('#updategroup').serialize(),
+		function (result) {
+			$('.result').html(result.msg);
+		});
+}
+
+function addsecgroup(){
+	
+}
+
 function adduser(){
 		$.post("/admin/siteadmin/adduser",
 		{

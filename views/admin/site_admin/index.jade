@@ -33,9 +33,9 @@ block content
 				th permissions
 				for s in secgroups
 					tr
-						td {s.name}
-						td {s.desc}
-						td {s.perms}
+						td #{s.name}
+						td #{s.description}
+						td #{s.permissions}
 						td
 							a.glyphicon.glyphicon-edit(href="/admin/siteadmin/editsecgroup?gid=#{s._id}" title="Edit Security Group")
 							span(style="margin-left: 5px;")
