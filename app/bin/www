@@ -1,8 +1,5 @@
 #!/usr/bin/env node
 
-/// <reference path="../typings/tsd.d.ts" />
-
-
 /**
  * Module dependencies.
  */
@@ -14,8 +11,8 @@ var https = require('https');
 var fs = require('fs');
 
 var credentials = {
-  key: fs.readFileSync('ssl/key.pem'),
-  cert: fs.readFileSync('ssl/server.crt')
+  key: fs.readFileSync('/ssl/key.pem'),
+  cert: fs.readFileSync('/ssl/server.crt')
 }; 
 
 /**
@@ -36,11 +33,11 @@ var sslserver = https.createServer(credentials, app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port, '127.0.0.1');
+server.listen(port, '0.0.0.0');
 server.on('error', onError);
 server.on('listening', onListening);
 
-sslserver.listen(3001, '127.0.0.1');
+sslserver.listen(3001, '0.0.0.0');
 sslserver.on('error', onError);
 sslserver.on('listening', onListening);
 

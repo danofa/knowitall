@@ -1,0 +1,25 @@
+version: "2"
+
+services: 
+  
+  mongo:
+    image: mongo:3.4.0
+    volumes: 
+      - "./data:/data/db"
+  
+  web:
+    build: 
+      context: .
+      dockerfile: dev.Dockerfile
+    volumes:
+      - "./app:/app"
+      - "/app/node_modules"
+      - "./ssl:/ssl"
+    working_dir: /app
+    command: npm start
+    ports: 
+      - "3001:3000"
+    depends_on: 
+      - mongo
+    environment: 
+      - DB_SERVER='mongo'
