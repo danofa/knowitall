@@ -19,7 +19,7 @@ block content
             ul
                 each t in subTopics
                     li.mytp
-                        mixin displayChildren(t, topics)
+                        +displayChildren(t, topics)
             
     ul.tree
         li 
