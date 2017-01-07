@@ -1,5 +1,3 @@
-/// <reference path="../typings/tsd.d.ts" />
-
 var router = require('express').Router();
 var Topics = require('mongoose').model('Topic');
 var Articles = require('mongoose').model('Article');
@@ -24,21 +22,21 @@ router.get('/', function (req, res, next) {
 
 // login page
 router.get('/login', function (req, res, next) {
-    if (req.secure) {
+//    if (req.secure) {
         if (req.session.authenticated == true) {
             res.redirect('/admin');
         } else {
             res.render('login');
         }
 
-    } else {
-        res.redirect("https://" + req.hostname + req.path);
-    }
+    // } else {
+    //     res.redirect("https://" + req.hostname + req.path);
+    // }
 });
 
 // logout !
 router.get('/logout', function (req, res, next) {
-    if (req.secure && req.session.authenticated) {
+    if (req.session.authenticated) {
         req.session.destroy();
         res.redirect('/');
     } else {
@@ -48,7 +46,8 @@ router.get('/logout', function (req, res, next) {
 
 // check login credentials, turn away if failed!
 router.post('/login', function (req, res, next) {
-    if (req.secure && req.body.login && req.body.password) {
+//req.secure && 
+    if (req.body.login && req.body.password) {
 
         var sess = req.session;
         Users.findOne({ login: req.body.login }).populate('secgroups').exec(function (err, user) {
@@ -60,6 +59,7 @@ router.post('/login', function (req, res, next) {
                 sess.displayname = user.name;
                 sess.login = user.login;
                 sess.uid = user._id;
+                console.log("made is here");
                 res.redirect('/admin');
             } else {
                 res.status(401).send('Invalid credentials');

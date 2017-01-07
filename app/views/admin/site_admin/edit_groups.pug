@@ -15,7 +15,7 @@ block content
 						tr
 							td #{key}
 							td
-								select(name="#{key}")
+								select(name=key)
 									if perm === false
 										option(selected value="0") false
 										option(value="1") true
@@ -23,7 +23,7 @@ block content
 										option(value="0") false
 										option(selected value="1") true
 		input(type="button" value="update" onclick="updatesecgroup();")
-		input(type="hidden" name="gid" value="#{secgroup._id}")
+		input(type="hidden" name="gid" value=secgroup._id)
 	br
 	div.result
 	a(href="/admin/siteadmin") < Return <

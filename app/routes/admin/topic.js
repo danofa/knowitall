@@ -1,5 +1,3 @@
-/// <reference path="../../typings/tsd.d.ts" />
-
 var mongoose = require('mongoose');
 var Articles = mongoose.model('Article');
 var Topics = mongoose.model('Topic');

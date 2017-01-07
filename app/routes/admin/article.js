@@ -61,7 +61,9 @@ module.exports = function (router) {
 
 
     router.post('/article/add', function (req, res) {
- 
+        
+
+        console.log(req.body.group);
         var topicId = new mongoose.Types.ObjectId(req.body.group);
 
         var newArt = new Articles({

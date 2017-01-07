@@ -14,12 +14,12 @@ services:
     volumes:
       - "./app:/app"
       - "/app/node_modules"
-      - "./ssl:/ssl"
     working_dir: /app
-    command: npm start
+    command: nodemon -L /app/bin/www
     ports: 
-      - "3001:3000"
+      - "3000:3000"
     depends_on: 
       - mongo
     environment: 
-      - DB_SERVER='mongo'
+      - DB_SERVER=mongo
+      - NODE_ENV=development

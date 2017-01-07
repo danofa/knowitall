@@ -33,7 +33,11 @@ function updatesecgroup() {
 }
 
 function addsecgroup(){
-	
+	$.post("/admin/siteadmin/addsecgroup",
+		$('#updategroup').serialize(),
+		function (result) {
+			$('.result').html(result.msg);
+		});
 }
 
 function adduser(){

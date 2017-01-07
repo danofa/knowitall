@@ -35,6 +35,10 @@ module.exports = function (router) {
 		res.render('admin/site_admin/add_user');
 	});
 
+	// route.post('/siteadmin/addsecgroup', (req, res, next) => {
+
+	// });
+
 	/* update user password in db, create a new hash */
 	router.post('/siteadmin/updateuserpass', function (req, res, next) {
 		if (req.body.updatepass) {

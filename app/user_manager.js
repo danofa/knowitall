@@ -1,12 +1,12 @@
-/// <reference path="typings/tsd.d.ts" />
-
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs')
 var inquirer = require("inquirer");
 var userSchema = require('./models/user.js');
 var Users = mongoose.model('User');
 
-mongoose.connect('mongodb://127.0.0.1/knowitall', function (err) { if (err) { console.error("mongoose connection error: " + err); return; } });
+dbServer = process.env.DB_SERVER ? process.env.DB_SERVER : '';
+console.log(dbServer);
+mongoose.connect(`mongodb://${dbServer}/knowitall`, function (err) { if (err) { console.error("mongoose connection error: " + err); return; } });
 //mongoose.set('debug', true);
 
 function main() {

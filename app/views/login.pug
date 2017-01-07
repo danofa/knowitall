@@ -8,7 +8,7 @@ block content
     .form-group
       .col-md-offset-5
       .col-md-2.col-md-offset-5
-        input.form-control(type="text" name="login" placeholder="Login name")
+        input#login-name.form-control(type="text" name="login" placeholder="Login name")
     .form-group
       .col-md-offset-5
       .col-md-2.col-md-offset-5
@@ -17,3 +17,6 @@ block content
       .col-md-offset-5
       .col-md-2.col-md-offset-5
         input.form-control(type="submit" name="submit" value="Login")
+  script.
+    window.onload = function(){ $('#login-name').focus(); }
+    

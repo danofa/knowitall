@@ -1,4 +1,3 @@
-/// <reference path="typings/tsd.d.ts"/>
 
 module.exports = function (app) {
 	// catch 404 and forward to error handler

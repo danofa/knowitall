@@ -1,6 +1,3 @@
-/// <reference path="../typings/tsd.d.ts" />
-
-
 // routing 
 var root = require('./root');
 var admin = require('./admin/');
@@ -8,7 +5,7 @@ var search = require('./search')
 
 module.exports = function (app) {
 	
-	// push current session into response locals for jade
+	// push current session into response locals for pug
 	app.use(function (req, res, next) {
 		res.locals.ref = req.get('referrer');
 

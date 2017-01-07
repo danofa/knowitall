@@ -1,5 +1,3 @@
-/// <reference path="../../typings/tsd.d.ts" />
-
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
@@ -8,20 +6,17 @@ var Topics = mongoose.model('Topic');
 
 // catchall for checking https is being used, and for checking user is logged in
 router.all("*", function (req, res, next) {
-
-  if (!req.secure) {
-    res.redirect("https://" + req.hostname + req.path);
-  } else {
     var sess = req.session;
-
+    
     if (sess.authenticated != true) {
+      console.log(req.session);
+      console.log("failing here!!");
       res.status(401).send('Invalid credentials');
 
     } else {
       sess.touch();
       next();
     }
-  }
 });
 
 // admin index

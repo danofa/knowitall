@@ -18,9 +18,9 @@ block content
 				td= moment(art.created).format("ddd D/M, ha")
 				td= moment(art.modified).format("ddd D/M, ha")
 				td
-					a.btn(href="delete/#{art._id}" title="Delete")
+					a.btn(href=`delete/${art._id}` title="Delete")
 						i.glyphicon.glyphicon-trash
-					a.btn(href="edit/#{art._id}" title="Edit")
+					a.btn(href=`edit/${art._id}` title="Edit")
 						i.glyphicon.glyphicon-edit
 						
-	include ../includes/links.jade
+	include ../includes/links.pug

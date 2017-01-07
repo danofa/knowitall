@@ -2,22 +2,22 @@ extends ../../layout
 
 block content
 	form
-		input(type="hidden" value="#{user._id}" id="uid")
+		input(type="hidden" value=`${user._id}` id="uid")
 		| login name: 
-		input(type="text" value="#{user.login}" id="userlogin")
+		input(type="text" value=`${user.login}` id="userlogin")
 		br
 		| user name: 
-		input(type="text"  value="#{user.name}" id="username")
+		input(type="text"  value=`${user.name}` id="username")
 		br
-		| security groups: 
-		select
-			each sec in user.secgroups
-				option(value="#{sec}") #{sec}
+		| security groups:
+		if user 
+			select
+				each sec in user.secgroups
+					option(value=`${sec}`) #{sec}
 		a.glyphicon.glyphicon-plus(href="#" style="margin-left:10px;" data-toggle="tooltip" data-placement="top" title="Add security group")
 		a.glyphicon.glyphicon-trash(href="#" style="margin-left:10px;" data-toggle="tooltip" data-placement="top" title="remove security group")
 		br
 		span
-		| #{user}
 		br
 		input(type="button" value="update" onclick="updateuser();")
 		hr

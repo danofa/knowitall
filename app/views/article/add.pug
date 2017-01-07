@@ -4,7 +4,7 @@ block content
     if add_error
         .error #{add_error}
     form.form-horizontal(method="POST")
-        input(type="hidden" name="refurl" value="#{ref}")
+        input(type="hidden" name="refurl" value=ref)
         .form-group
             label.control-label.col-sm-1(for='title') Title:			
             .col-sm-7
@@ -17,9 +17,9 @@ block content
                 select.form-control(name="group")
                     each o in topicgroups
                         if tid && o._id == tid
-                            option(value="#{o._id}" selected) #{o.title} / #{o.description}
+                            option(value=o._id selected) #{o.title} / #{o.description}
                         else
-                            option(value="#{o._id}") #{o.title} / #{o.description}
+                            option(value=o._id) #{o.title} / #{o.description}
             .col-sm-offset-4
             
         .form-group
@@ -42,4 +42,4 @@ block content
                 script(src="/javascripts/preview.js")
                 button.btn.btn-default.form-control(type='button' id='preview' name='preview' onclick="pApup()") Preview
         
-    include ../includes/links.jade
+    include ../includes/links.pug

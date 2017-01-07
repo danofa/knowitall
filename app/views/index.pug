@@ -1,0 +1,40 @@
+extends layout
+
+
+block breadcrumbs
+  - var path = "";
+  if breadcrumbs != null
+    - path += "/" + breadcrumbs.join("/");
+    ol.breadcrumb
+      li: a(href="/") Index
+      - var crumb = "";
+      for b, index in breadcrumbs
+        - crumb += "/" + b;
+        if (index === breadcrumbs.length - 1)
+          li.active #{b}
+        else 
+          li: a(href=crumb) #{b}
+      if locals.session.authenticated && groupval
+        a.treebar.glyphicon.glyphicon-edit(style="color: red; margin-left: 5px;" href=`/admin/topic/edit/${groupval._id}` data-toggle="tooltip" data-placement="top" title="edit topic")
+        span(style="margin-left: 50px;")
+          a.glyphicon.glyphicon-plus(style="color: red;" href=`/admin/topic/add?pid=${groupval._id}` data-toggle="tooltip" data-placement="top" title="add new topic")
+          span(style="margin-left: 10px;")
+          a.glyphicon.glyphicon-file(style="color: red;" href=`/admin/article/add?tid=${groupval._id}` data-toggle="tooltip" data-placement="top" title="add article")
+
+block content
+  if search
+    h3 search results for '#{search}', #{searchcount} result(s).
+  if topics && topics.length != 0
+      ul.nav.nav-pills
+        for t in topics
+          li.navpills-custom
+            a(href=`${path}/${t.title}` data-toggle="tooltip" data-container="body" data-placement="top" title=t.description) #{t.title}
+              span.badge(style="margin-left: 5px;" data-toggle="tooltip" data-container="body" data-placement="right" title=`${t.child_articles_count} sub articles in topic`) #{t.child_articles_count}
+
+  if lastten
+    h3 Last 10 Updates..
+    include ./includes/index_articles.pug
+  else 
+    hr
+    include ./includes/index_articles.pug
+    

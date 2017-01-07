@@ -26,10 +26,6 @@ Topics.find().populate('parent').exec(function (err, topics) {
 
 
 function getChildren(topic, topics) {
-
-
-    //    console.log('<ul><li>' + topic.title + '</li>');
-
     var subTopics = topics.filter(function (obj) {
         return (obj.parent && mongoose.Types.ObjectId(topic._id).equals(mongoose.Types.ObjectId(obj.parent._id)));
     });

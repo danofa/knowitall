@@ -16,7 +16,7 @@ block content
                 else
                     td -
                 td
-                    a.btn.glyphicon.glyphicon-trash(href="../delete/#{top._id}" title="Delete")
-                    a.btn.glyphicon.glyphicon-edit(href="../edit/#{top._id}" title="Edit")
+                    a.btn.glyphicon.glyphicon-trash(href=`../delete/${top._id}` title="Delete")
+                    a.btn.glyphicon.glyphicon-edit(href=`../edit/${top._id}` title="Edit")
     
-    include ../../includes/links.jade
+    include ../../includes/links.pug

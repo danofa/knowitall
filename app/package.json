@@ -1,6 +1,6 @@
 {
   "name": "testing",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
@@ -14,11 +14,12 @@
     "express": "~4.12.4",
     "express-session": "^1.11.3",
     "inquirer": "^0.8.5",
-    "jade": "~1.9.2",
     "marked": "^0.3.3",
     "moment": "^2.10.3",
     "mongoose": "^4.0.3",
     "morgan": "~1.5.3",
-    "serve-favicon": "~2.2.1"
+    "pug": "^2.0.0-beta6",
+    "serve-favicon": "~2.2.1",
+    "nodemon":"1.11.0"
   }
 }

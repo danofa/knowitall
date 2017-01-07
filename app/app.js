@@ -43,14 +43,14 @@ app.locals.apptitle = 'Knowitall';
 
 // db setup
 dbServer = process.env.DB_SERVER ? process.env.DB_SERVER : '';
-console.log(dbServer);
+console.log(`database server: ${dbServer}`);
 
-mongoose.connect(`mongodb://${dbServer}/knowitall`, function (err) { if (err) { console.error("mongoose connection error: " + err); process.exit(); } });
+mongoose.connect(`mongodb://${dbServer}/knowitall`, { server: { auto_reconnect:true }}, function (err) { if (err) { console.error("mongoose connection error: " + err); } });
 mongoose.set('debug', true);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 app.set('view options', { pretty: true });
 app.locals.pretty = true;
 
@@ -123,11 +123,20 @@ app.locals.md = require('marked');
 // session store setup
 app.set('trust proxy', 1);
 
+let cookie = {}
+
+if(app.get('env') !== 'development'){
+  cookie = { secure: true, httpOnly: true, maxAge: (1000 * 60 * 60) };
+  console.log("prod session handling activated");
+} else {
+  console.log("dev session handling activated");
+}
+
 app.use(session({
   resave: false,
   saveUninitialized: false,
   secret: 'mysuper app secret',
-  cookie: { secure: true, httpOnly: true, maxAge: (1000 * 60 * 60) },
+  cookie: cookie,
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
