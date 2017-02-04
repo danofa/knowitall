@@ -1,3 +1,5 @@
-ssl/*
 *.log
-node_modules/*
+node_modules/
+data/
+typings/
+knowitall.docker-compose.yml

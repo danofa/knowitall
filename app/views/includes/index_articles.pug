@@ -1,0 +1,49 @@
+if articles && articles.length != 0 
+  .panel-group
+    for a in articles
+      - var group = (typeof(groupval) === 'undefined' ? a.group : groupval);
+      .panel.panel-default
+        .panel-heading.article-panel(style="border-radius: 4px;")
+          .container-fluid
+            .col-md-12
+              .row
+                .col-md-6.col-sm-6.text-left
+                  a(data-toggle="collapse" aria-expanded="false" aria-controls=a.quicklink href=`#${a.quicklink}` )
+                    i.glyphicon.glyphicon-folder-open(style="margin-right: 8px;")
+                    | #{a.title}
+                  if group    
+                    a.bookmark.glyphicon.glyphicon-link.text-muted(style="margin-left: 10px;" data-toggle="tooltip" data-container="body" data-placement="top" 
+                    title="Bookmark Link" href=`${(search !== 'undefined' ? group.title + '#' + a.quicklink : path + '#' + a.quicklink)}`)
+    
+    
+                  if locals.session.authenticated
+                      a.small.glyphicon.glyphicon-edit.text-muted(style="margin-left: 10px; color: red;" title="edit article" href=`/admin/article/edit/${a._id}`)
+                  if group
+                      a(href=`/${group.title}` style="margin-left: 10px;font-size: smaller;" 
+                        data-toggle="tooltip" data-container="body" data-placement="top" title=group.description) #{group.title}
+    
+                .col-md-6.col-sm-6.text-right
+                  span(style="margin: 0px 10px;") modified: #{moment(a.modified).calendar()}
+                
+        .panel-collapse.collapse(id=a.quicklink)
+          .panel-body(style="margin: 0px; background: #ffffff; border: 0px; border-radius: 4px;")!= md(a.body)
+          if a.comments.length > 0 || locals.session.authenticated
+            .panel-footer.article-panel(style="padding: 5px;")
+              if locals.session.authenticated
+                a.smaller(data-toggle="collapse" aria-expanded="false" aria-controls=`${a.quicklink}comment` href=`#${a.quicklink}comment`)
+                  i.glyphicon.glyphicon-plus
+                  |  comment
+                span(id=`result${a._id}` style="margin-left: 10px;")
+                .panel-collapse.collapse(id=`${a.quicklink}comment`)
+                  .panel-body
+                    input(type="text" id=`input_${a._id}`)
+                    input.doComment(type="button" value="Add" name="doComment" onclick=`doComment('${a._id}', '#input_${a._id}', '#result${a._id}')`)
+                    
+             
+              if a.comments.length > 0
+                ul.list-group(id=`commentslist${a._id}` style="padding-top: 0px; margin: 0px; padding: 0px;")
+                  for c in a.comments
+                    li.list-group-item.comment-block
+                      span.comment-header #{c.username} : #{moment(c.modified).fromNow()}
+                      p #{c.body}
+                      

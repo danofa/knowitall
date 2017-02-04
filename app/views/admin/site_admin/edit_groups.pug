@@ -1,0 +1,30 @@
+extends ../../layout
+
+
+block content
+	form(id="updategroup")
+		| group name: 
+		input(type="text"  name="groupname" value="#{secgroup.name}")
+		br
+		| group description: 
+		input(type="text" size="100" name="groupdescription" value="#{secgroup.description}")
+		hr
+		table.table.table-striped
+			each perm, key in secgroup.permissions
+				if(key.substr(0,4) == 'can_')
+						tr
+							td #{key}
+							td
+								select(name=key)
+									if perm === false
+										option(selected value="0") false
+										option(value="1") true
+									else if perm === true
+										option(value="0") false
+										option(selected value="1") true
+		input(type="button" value="update" onclick="updatesecgroup();")
+		input(type="hidden" name="gid" value=secgroup._id)
+	br
+	div.result
+	a(href="/admin/siteadmin") < Return <
+	script(src="/javascripts/siteadmin.js")

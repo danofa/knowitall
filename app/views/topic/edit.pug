@@ -1,0 +1,37 @@
+extends ../layout
+
+block content
+	if edit_error
+		.error #{edit_error}
+	form.form-horizontal(method="POST" action="../update")
+		input(type="hidden" name="id" value=topic._id)
+		.form-group
+			label.control-label.col-sm-4(for='title') Title:			
+			.col-sm-4
+				input.form-control(type='text' name='title' value="#{topic.title}")
+			.col-sm-offset-4
+			
+		.form-group
+			label.control-label.col-sm-4(for='description') Description:
+			.col-sm-4
+				input.form-control(type='text' name='description' value="#{topic.description}")
+			.col-sm-offset-4
+		
+		.form-group
+			label.control-label.col-sm-4(for='parent') Parent:
+			.col-sm-4
+				select.form-control(name="parent")
+					option(value="") -
+					each o in topicgroups
+						unless o._id.equals(topic._id)
+							if topic.parent && topic.parent._id.equals(o._id)
+								option(value=o._id selected) #{o.title} / #{o.description}
+							else 
+								option(value=o._id) #{o.title} / #{o.description}
+			.col-sm-offset-4
+			
+		.form-group
+			.col-sm-offset-4.col-sm-4
+				button.btn.btn-default.form-control(type='submit' id='submit' name='submit') SUBMIT
+		
+	include ../includes/links.pug
